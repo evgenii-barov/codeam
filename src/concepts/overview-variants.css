@@ -1,0 +1,127 @@
+/* All compositions share one measured footprint, so changing the preview does
+   not shift the scroll timeline, the docked wordmark or the following cases. */
+.ix-overview.ov-comparison { padding-bottom: 36px; }
+.ov-comparison .is-inner { min-height: calc(100svh - 72px); }
+.ov-comparison .is-brand-bar { margin-bottom: 32px; }
+.ov-comparison .is-body { position: relative; }
+.ov-deck { display: grid; flex: 1; margin-inline: 48px; }
+.ov-panel { grid-area: 1 / 1; min-width: 0; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .25s ease, transform .5s ease, visibility 0s .25s; }
+.ov-panel[data-current='true'] { opacity: 1; visibility: visible; transform: none; transition: opacity .55s ease .12s, transform .65s cubic-bezier(.2,.7,.2,1) .08s, visibility 0s; }
+.ov-panel h2:focus { outline: none; }
+.ov-version { display: flex; align-items: center; gap: 22px; padding: 6px 0; font-size: 11px; letter-spacing: .02em; }
+.ov-version > span:first-child { font-variant-numeric: tabular-nums; }
+.ov-version i { font-style: normal; color: #85887e; margin-left: 5px; }
+.ov-version > span:last-child { min-width: 100px; }
+.ov-controls { position: absolute; z-index: 5; inset: 0; pointer-events: none; }
+.ov-controls button { position: absolute; top: min(25svh,240px); display: grid; place-items: center; width: 40px; height: 64px; padding: 0; border: 1px solid var(--is-rule); background: #fafaf8; color: var(--is-ink); pointer-events: auto; transition: background .2s, border-color .2s; }
+.ov-controls button:hover { background: #d7ff36; border-color: #d7ff36; }
+.ov-controls .ov-prev { left: -10px; }
+.ov-controls .ov-next { right: -10px; }
+.ov-prev .arrow, .ov-prev:hover > .arrow { transform: rotate(180deg); }
+.ov-next:hover > .arrow { transform: translateX(2px); }
+.ov-kicker { font-size: 10px; letter-spacing: .13em; text-transform: uppercase; }
+.ov-lead { font-size: clamp(17px,1.3vw,21px); line-height: 1.5; letter-spacing: -.025em; margin: 0; }
+.ov-panel:not(.ov-original) h2 { font-family: var(--font-display); font-weight: 500; letter-spacing: -.065em; line-height: 1.1; margin: 0; }
+.ov-panel .io-trust { margin-top: auto; }
+.ov-panel .io-trust ul { padding-bottom: 0; }
+
+/* 02 — The left column states the proposition; the right reads as an index. */
+.ov-editorial-grid { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); gap: clamp(36px,6vw,110px); margin-bottom: 32px; }
+.ov-editorial h2 { font-size: clamp(42px,4.65vw,86px); }
+.ov-editorial h2 span { background: linear-gradient(transparent 66%,#d7ff36 66%,#d7ff36 94%,transparent 94%); }
+.ov-editorial .ov-lead { max-width: 46ch; margin: 28px 0 26px; }
+.ov-editorial .io-note { margin-bottom: 0; }
+.ov-editorial-index { padding-top: 12px; }
+.ov-editorial .io-directions { display: block; border-top: 0; margin: 24px 0 0; }
+.ov-editorial .io-directions li { display: grid; grid-template-columns: 28px 1fr; column-gap: 18px; padding: 21px 0; border: 0; border-top: 1px solid var(--is-rule); }
+.ov-editorial .io-number { grid-row: 1 / 3; padding-top: 7px; }
+.ov-editorial .io-directions h3 { margin: 0 0 8px; font-size: clamp(22px,2.05vw,34px); }
+.ov-editorial .io-directions p { max-width: none; font-size: 13px; }
+.ov-editorial .io-scenarios { border-inline: 0; margin-bottom: 30px; }
+.ov-editorial .io-scenarios > div { padding: 21px 0; }
+.ov-editorial .io-scenarios > div + div { padding-left: 30px; }
+
+/* 03 — A centred statement, with quieter information underneath. */
+.ov-manifesto-copy { text-align: center; padding: 4px 0 24px; }
+.ov-manifesto h2 { font-size: clamp(46px,5.3vw,88px); }
+.ov-manifesto h2 span { color: #777c70; }
+.ov-manifesto .ov-lead { max-width: 800px; margin: 24px auto 22px; font-size: clamp(16px,1.2vw,18px); }
+.ov-manifesto .io-actions { justify-content: center; }
+.ov-manifesto .io-note { margin-bottom: 0; }
+.ov-manifesto .io-directions { margin-bottom: 0; }
+.ov-manifesto .io-directions li { padding-top: 20px; padding-bottom: 22px; text-align: center; border-right: 0; }
+.ov-manifesto .io-directions p { margin-inline: auto; }
+.ov-manifesto .io-directions h3 { margin-top: 12px; font-size: clamp(19px,1.65vw,28px); }
+.ov-manifesto .io-scenarios { border-inline: 0; margin-bottom: 30px; }
+.ov-manifesto .io-scenarios > div { text-align: center; padding-block: 20px; }
+.ov-manifesto .io-trust h3 { justify-content: center; }
+.ov-manifesto .io-trust li { text-align: center; }
+
+/* 04 — Two real starting points, each with its own action. */
+.ov-tasks-intro { display: grid; grid-template-columns: 1.4fr 1fr; gap: 70px; align-items: end; margin-bottom: 32px; }
+.ov-tasks h2 { font-size: clamp(40px,4vw,70px); }
+.ov-tasks h2 span { color: #777c70; }
+.ov-tasks-intro .ov-lead { max-width: 440px; margin-left: auto; font-size: clamp(16px,1.2vw,20px); }
+.ov-task-choices { display: grid; grid-template-columns: 1.1fr 1fr; margin-bottom: 32px; }
+.ov-task-choices > div { padding: 28px 32px 24px; min-width: 0; }
+.ov-task-existing { background: #d7ff36; }
+.ov-task-new { background: #151713; color: #fafaf8; }
+.ov-task-choices h3 { font-family: var(--font-display); font-size: clamp(35px,4.1vw,72px); font-weight: 500; letter-spacing: -.065em; line-height: 1.1; margin: 22px 0 14px; }
+.ov-task-choices p { font-size: 14px; line-height: 1.5; margin: 0 0 26px; }
+.ov-task-choices button { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 46px; background: none; border: 0; border-top: 1px solid currentColor; padding: 16px 0 0; text-align: left; color: inherit; font-size: 15px; }
+.ov-task-choices button .arrow { width: 25px; height: 25px; }
+.ov-task-choices small { display: block; font-size: 11px; line-height: 1.5; margin-top: 12px; }
+.ov-task-new > a { display: inline-flex; align-items: center; gap: 14px; font-size: 11px; margin-top: 12px; }
+.ov-task-new > a .arrow { width: 14px; height: 14px; }
+.ov-task-new :is(a,button):focus-visible { outline-color: #d7ff36; }
+.ov-tasks .io-directions { margin-bottom: 30px; }
+.ov-tasks .io-directions li { padding-top: 18px; padding-bottom: 16px; }
+.ov-tasks .io-directions h3 { font-size: clamp(18px,1.55vw,26px); margin-top: 10px; }
+.ov-tasks .io-directions p { font-size: 13px; }
+
+@media (max-width: 1100px) {
+  .ov-deck { margin-inline: 38px; }
+  .ov-editorial-grid { gap: 30px; grid-template-columns: 1.2fr 1fr; }
+  .ov-editorial h2 { font-size: 4.6vw; }
+  .ov-editorial .io-actions { flex-wrap: wrap; gap: 8px 20px; }
+  .ov-tasks-intro { gap: 30px; }
+  .ov-task-choices > div { padding: 24px; }
+  .ov-task-choices small { max-width: 29ch; }
+}
+@media (max-width: 700px) {
+  .ov-comparison .is-brand-bar { margin-bottom: 22px; }
+  .ov-version { flex-direction: column; align-items: flex-end; gap: 7px; font-size: 10px; }
+  .ov-version > span:last-child { min-width: 0; }
+  .ov-deck { margin-inline: 0; padding-top: 74px; }
+  .ov-controls { height: 48px; }
+  .ov-controls button { top: 0; width: 48px; height: 44px; }
+  .ov-controls .ov-prev { left: 0; }
+  .ov-controls .ov-next { right: 0; }
+  .ov-editorial-grid { grid-template-columns: 1fr; gap: 30px; margin-bottom: 24px; }
+  .ov-editorial h2 { font-size: clamp(29px,7.6vw,50px); }
+  .ov-editorial .ov-lead { margin-top: 24px; font-size: 16px; }
+  .ov-editorial-index { padding-top: 0; }
+  .ov-editorial .io-directions { margin-top: 18px; }
+  .ov-editorial .io-directions li { padding: 17px 0; column-gap: 10px; }
+  .ov-editorial .io-directions h3 { font-size: 23px; }
+  .ov-editorial .io-scenarios > div + div { padding-left: 0; }
+  .ov-manifesto-copy { padding-top: 4px; padding-bottom: 28px; }
+  .ov-manifesto h2 { font-size: clamp(28px,7.4vw,49px); }
+  .ov-manifesto .ov-lead { font-size: 16px; margin: 24px auto; }
+  .ov-manifesto .io-actions { flex-direction: column; gap: 4px; }
+  .ov-manifesto .io-directions li { padding: 18px 10px; }
+  .ov-manifesto .io-directions h3 { font-size: 18px; }
+  .ov-manifesto .io-scenarios > div { padding-inline: 10px; }
+  .ov-tasks-intro { display: block; margin-bottom: 26px; }
+  .ov-tasks h2 { font-size: clamp(29px,7.5vw,50px); }
+  .ov-tasks-intro .ov-lead { margin: 24px 0 0; font-size: 16px; }
+  .ov-task-choices { grid-template-columns: 1fr; }
+  .ov-task-choices > div { padding: 24px; }
+  .ov-task-choices h3 { font-size: 40px; }
+  .ov-task-choices small { max-width: none; }
+  .ov-panel .io-trust { margin-top: 0; }
+  .ov-tasks .io-directions h3 { font-size: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ov-panel, .ov-panel[data-current='true'] { transition: none; transform: none; }
+}

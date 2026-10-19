@@ -1,0 +1,292 @@
+.ed-hero {
+  --ed-ink: #1c1d1a;
+  --ed-paper: #f0f0e9;
+  --ed-line: #c9cbc1;
+  background: var(--ed-paper);
+  color: var(--ed-ink);
+  overflow: hidden;
+}
+
+.ed-body {
+  padding: 33px 48px 25px;
+}
+
+.ed-intro {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.ed-eyebrow,
+.ed-side-note,
+.ed-art-caption {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: .025em;
+}
+
+.ed-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding-top: 3px;
+}
+
+.ed-eyebrow > span {
+  width: 7px;
+  height: 7px;
+  background: var(--ed-ink);
+}
+
+.ed-side-note {
+  width: 151px;
+  padding-left: 15px;
+  border-left: 1px solid var(--ed-ink);
+}
+
+.ed-title {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(57px, 6.25vw, 110px);
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -.065em;
+}
+
+.ed-title > span {
+  display: block;
+}
+
+.ed-title em {
+  position: relative;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.ed-title em::after {
+  position: absolute;
+  z-index: -1;
+  right: -.04em;
+  bottom: .055em;
+  left: -.025em;
+  height: .27em;
+  background: #d7ff36;
+  content: '';
+}
+
+.ed-lower {
+  position: relative;
+  display: grid;
+  grid-template-columns: .95fr 1.05fr;
+  min-height: 312px;
+  margin-top: 19px;
+}
+
+.ed-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 0 30px;
+}
+
+.ed-description {
+  margin: 0 0 25px;
+  font-family: var(--font-body);
+  font-size: clamp(17px, 1.45vw, 22px);
+  font-weight: 450;
+  line-height: 1.45;
+  letter-spacing: -.025em;
+}
+
+.ed-cta {
+  border: 1px solid var(--ed-ink) !important;
+  background: var(--ed-ink) !important;
+  color: #fff !important;
+}
+
+.ed-cta:hover {
+  background: #d7ff36 !important;
+  color: var(--ed-ink) !important;
+}
+
+.ed-art {
+  position: relative;
+  align-self: stretch;
+  overflow: hidden;
+  min-width: 0;
+  background: #d7ff36;
+}
+
+.ed-object {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 114%;
+  max-width: none;
+  height: auto;
+  transform: translate(-50%, -50%) rotate(-9deg);
+  transition: transform 700ms cubic-bezier(.2, .7, .2, 1);
+}
+
+.ed-art:hover .ed-object {
+  transform: translate(-50%, -50%) rotate(-4deg) scale(1.025);
+}
+
+.ed-art-caption {
+  position: absolute;
+  z-index: 1;
+  top: 14px;
+  left: 18px;
+  padding: 5px 6px;
+  background: #d7ff36;
+  font-size: 9px;
+  letter-spacing: .1em;
+}
+
+.ed-art-corner {
+  position: absolute;
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+}
+
+.ed-art-corner--tl {
+  top: 17px;
+  right: 19px;
+  border-top: 1px solid var(--ed-ink);
+  border-right: 1px solid var(--ed-ink);
+}
+
+.ed-art-corner--br {
+  bottom: 19px;
+  left: 20px;
+  border-bottom: 1px solid var(--ed-ink);
+  border-left: 1px solid var(--ed-ink);
+}
+
+.ed-disciplines {
+  display: grid;
+  grid-template-columns: 1.65fr 1fr;
+  gap: 44px;
+  align-items: center;
+  margin-top: 28px;
+  padding-top: 19px;
+  border-top: 1px solid var(--ed-line);
+}
+
+.ed-discipline-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.ed-discipline {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-height: 45px;
+  padding: 9px 16px 9px 0;
+  border: 0;
+  background: transparent;
+  color: var(--ed-ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ed-discipline:not(:first-child) {
+  padding-left: 18px;
+  border-left: 1px solid var(--ed-line);
+}
+
+.ed-discipline-number {
+  font-size: 9px;
+  font-weight: 500;
+  opacity: .65;
+}
+
+.ed-discipline svg {
+  width: 13px;
+  height: 13px;
+  margin-left: auto;
+  opacity: 0;
+  transform: translate(-3px, 3px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.ed-discipline:hover svg,
+.ed-discipline.is-active svg {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.ed-discipline.is-active > span:nth-child(2) {
+  box-shadow: 0 5px 0 -1px #d7ff36;
+}
+
+.ed-discipline:focus-visible,
+.ed-discipline-description:focus-visible {
+  outline: 2px solid var(--ed-ink);
+  outline-offset: 5px;
+}
+
+.ed-discipline-description {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: -.01em;
+  color: #51544c;
+}
+
+@media (min-width: 1600px) {
+  .ed-body { padding: 40px 64px 30px; }
+  .ed-lower { min-height: 360px; }
+}
+
+@media (max-width: 1100px) {
+  .ed-body { padding: 32px 32px 25px; }
+  .ed-title { font-size: clamp(48px, 6.2vw, 70px); }
+  .ed-lower { min-height: 310px; grid-template-columns: 1fr 1.1fr; }
+  .ed-disciplines { grid-template-columns: 1fr; gap: 13px; }
+  .ed-discipline-description { max-width: 480px; min-height: 36px; }
+  .ed-discipline-list { max-width: 650px; }
+}
+
+@media (max-width: 700px) {
+  .ed-hero { min-height: 0; }
+  .ed-body { padding: 24px 22px 25px; }
+  .ed-intro { margin-bottom: 30px; }
+  .ed-eyebrow { font-size: 10px; letter-spacing: 0; }
+  .ed-side-note { width: 110px; font-size: 9px; padding-left: 10px; }
+  .ed-title { font-size: clamp(30px, 8.8vw, 60px); line-height: 1.23; letter-spacing: -.065em; }
+  .ed-lower { display: flex; flex-direction: column; margin-top: 22px; min-height: 0; }
+  .ed-copy { padding: 0 0 27px; }
+  .ed-description { font-size: 15px; line-height: 1.5; margin-bottom: 19px; }
+  .ed-art { width: 100%; height: 230px; }
+  .ed-object { width: 109%; }
+  .ed-art-caption { top: 10px; left: 11px; font-size: 8px; }
+  .ed-disciplines { margin-top: 22px; padding-top: 10px; gap: 10px; }
+  .ed-discipline { gap: 6px; font-size: 11px; padding-right: 7px; }
+  .ed-discipline:not(:first-child) { padding-left: 9px; }
+  .ed-discipline-number { font-size: 8px; }
+  .ed-discipline svg { width: 10px; height: 10px; }
+  .ed-discipline-description { font-size: 11px; min-height: 34px; max-width: 320px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ed-object,
+  .ed-discipline svg { transition: none; }
+}

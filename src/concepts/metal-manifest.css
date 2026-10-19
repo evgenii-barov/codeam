@@ -1,0 +1,80 @@
+.mm-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 880px;
+  padding: 30px 48px 0;
+  color: #f7f7ef;
+  background: #10120f;
+}
+.mm-image { position: absolute; inset: 0; z-index: -2; }
+.mm-image img { width: 100%; height: 100%; object-fit: cover; object-position: 68% 42%; }
+.mm-image::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, #0a0e0bd9, transparent 28%, transparent 70%, #0a0e0bf2), linear-gradient(90deg, #0a0e0b85, transparent 65%);
+}
+.mm-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; position: relative; z-index: 1; }
+.mm-navigation { display: flex; justify-self: start; align-items: center; gap: 0; padding: 5px; background: #f4f4ec; color: #161813; }
+.mm-navigation button { border: 0; background: transparent; padding: 12px 19px; cursor: pointer; font-size: 12px; transition: background .2s; }
+.mm-navigation button:hover { background: var(--accent); }
+.mm-brand { padding: 12px; }
+.mm-brand img { width: 162px; }
+.mm-contact { display: flex; gap: 17px; align-items: center; justify-self: end; padding: 12px 0 12px 16px; border: 0; background: none; color: #f7f7ef; cursor: pointer; font-size: 10px; letter-spacing: .09em; }
+.mm-contact .arrow { width: 31px; height: 31px; padding: 6px; background: var(--accent); color: #10120f; }
+.mm-coordinate-row { display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-top: 48px; font-size: 9px; letter-spacing: .08em; color: #dbddd3; }
+.mm-main { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 92px 0 38px; }
+.mm-title-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 25px; }
+.mm-title-row h1 { margin: 0 0 0 -6px; font-family: var(--font-display); font-size: clamp(80px, 10.1vw, 176px); line-height: .98; letter-spacing: -.075em; font-weight: 650; color: var(--accent); }
+.mm-title-row h1 > span { display: block; }
+.mm-dot { color: #f3f3eb; }
+.mm-aside { align-self: flex-start; margin-top: 20px; padding-bottom: 14px; font-size: 10px; line-height: 1.6; letter-spacing: .07em; text-align: right; }
+.mm-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-top: 37px; }
+.mm-description { display: flex; align-items: flex-start; gap: 36px; }
+.mm-description-index { font-size: 10px; padding-top: 5px; color: #a4a89e; letter-spacing: .07em; }
+.mm-description p { font-size: 16px; line-height: 1.55; margin: 0; color: #e6e8de; }
+.mm-project { display: flex; align-items: center; gap: 29px; background: none; color: #f4f5ee; border: 0; padding: 0; cursor: pointer; text-align: left; }
+.mm-project > span:first-child { font-size: 17px; line-height: 1.4; letter-spacing: -.025em; }
+.mm-project-arrow { width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: #10120f; transition: transform .25s, background .25s; }
+.mm-project-arrow .arrow { width: 33px; height: 33px; }
+.mm-project:hover .mm-project-arrow { transform: rotate(45deg); background: #f3f3eb; }
+.mm-footer { display: flex; justify-content: space-between; align-items: center; gap: 30px; min-height: 72px; border-top: 1px solid #e6e9dd3d; font-size: 9px; letter-spacing: .06em; color: #bcc1b3; }
+.mm-footer button { display: flex; align-items: center; gap: 22px; font-size: 9px; background: none; border: 0; cursor: pointer; color: #eff0e8; padding: 14px 0; letter-spacing: .06em; }
+.mm-footer .arrow { width: 16px; }
+.mm-hero :focus-visible { outline-color: var(--accent); }
+.mm-navigation :focus-visible { outline-color: #10120f; }
+@media(min-width:1700px) { .mm-hero { min-height: 1000px; padding-inline:64px; } .mm-main { padding-top:130px; } }
+@media(max-width:1100px) { .mm-hero { min-height:800px; padding-inline:32px; } .mm-navigation button { padding:11px 12px; font-size:11px; } .mm-brand img { width:140px; } .mm-title-row h1 { font-size:10.8vw; } .mm-aside { font-size:8px; } .mm-description { gap:20px; } .mm-coordinate-row { font-size:8px; } }
+@media(max-width:700px) {
+  .mm-hero { min-height:830px; padding:24px 22px 0; }
+  .mm-header { grid-template-columns:1fr auto; row-gap:25px; }
+  .mm-brand { grid-row:1; grid-column:1; justify-self:start; padding:0; }
+  .mm-brand img { width:144px; }
+  .mm-contact { grid-row:1; grid-column:2; gap:12px; padding:6px 0; }
+  .mm-contact > span { font-size:8px; }
+  .mm-navigation { grid-row:2; grid-column:1/-1; width:100%; justify-content:space-between; }
+  .mm-navigation button { flex:1; font-size:12px; padding:12px 10px; }
+  .mm-coordinate-row { margin-top:24px; gap:20px; align-items:flex-start; line-height:1.6; }
+  .mm-coordinate-row > span { max-width:130px; font-size:8px; }
+  .mm-coordinate-row > span:last-child { text-align:right; }
+  .mm-image img { object-position:63% top; }
+  .mm-image::after { background:linear-gradient(180deg,#0c100cd9,transparent 30%,#0c100c33 44%,#0c100cf2 76%); }
+  .mm-main { padding:155px 0 28px; }
+  .mm-title-row { display:block; }
+  .mm-title-row h1 { font-size:clamp(42px,12.1vw,80px); line-height:1.04; letter-spacing:-.075em; margin-left:-2px; }
+  .mm-aside { display:block; text-align:left; margin-top:22px; max-width:280px; font-size:10px; padding:0; line-height:1.6; }
+  .mm-aside br { display:none; }
+  .mm-bottom { display:block; margin-top:22px; }
+  .mm-description { gap:18px; }
+  .mm-description p { font-size:14px; line-height:1.6; }
+  .mm-description-index { font-size:9px; }
+  .mm-project { margin-top:28px; width:100%; justify-content:space-between; gap:16px; }
+  .mm-project > span:first-child { font-size:17px; }
+  .mm-project-arrow { width:58px; height:58px; }
+  .mm-project-arrow .arrow { width:27px; height:27px; }
+  .mm-footer { min-height:78px; flex-wrap:wrap; gap:0 16px; padding:12px 0; font-size:8px; }
+  .mm-footer button { font-size:8px; padding:8px 0; gap:10px; }
+  .mm-footer > span:last-child { width:100%; font-size:7px; }
+}
+@media(prefers-reduced-motion:reduce) { .mm-project-arrow, .mm-navigation button { transition:none; } }
