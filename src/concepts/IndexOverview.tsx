@@ -66,8 +66,8 @@ export default function IndexOverview({ active, onHome, onWorks, onOpen }: Index
     <div className="is-inner">
       <header className="is-brand-bar">
         <a href="#codeam-top" className="is-brand" onClick={onHome} aria-label="CODEAM — к первому экрану">
-          <img src="/assets/brand-symbol.svg" className="is-brand-symbol" alt="" />
-          <span className="is-brand-wordmark"><img src="/assets/wordmark.svg" alt="" /></span>
+          <img src={import.meta.env.BASE_URL + 'assets/brand-symbol.svg'} className="is-brand-symbol" alt="" />
+          <span className="is-brand-wordmark"><img src={import.meta.env.BASE_URL + 'assets/wordmark.svg'} alt="" /></span>
         </a>
         <div className="ov-version" aria-live="polite" aria-atomic="true"><span>0{variant + 1} <i>/ 04</i></span><span>{variants[variant]}</span></div>
       </header>
@@ -137,4 +137,5 @@ export default function IndexOverview({ active, onHome, onWorks, onOpen }: Index
     </div>
   </section>;
 }
+
 

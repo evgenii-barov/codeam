@@ -107,3 +107,9 @@ cloudflared tunnel --url http://127.0.0.1:4173 --no-autoupdate
 ```
 
 Cloudflared напечатает HTTPS-адрес `*.trycloudflare.com`. Адрес временный и может измениться при перезапуске. Сервер и туннель должны продолжать работать; выключение компьютера отключает сайт. Для постоянного адреса нужен именованный туннель и домен в Cloudflare.
+
+### GitHub Pages — основной публичный хостинг
+
+Адрес: https://evgenii-barov.github.io/codeam/
+
+Workflow `.github/workflows/pages.yml` автоматически устанавливает зависимости, выполняет `npm run build:pages` и публикует `dist` при каждом push в `main`. Для Pages используется base `/codeam/`; обычная команда `npm run build` и локальная разработка сохраняют корневой адрес `/`. Пути изображений и 3D-текстуры учитывают `import.meta.env.BASE_URL`.

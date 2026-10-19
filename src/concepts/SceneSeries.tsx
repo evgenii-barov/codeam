@@ -21,10 +21,11 @@ export default function SceneSeries({ onOpen }: HeroProps) {
     </nav>
     <div id="metal-original" className="metal-series-original"><SceneHero onOpen={onOpen} /></div>
     {studies.map(({ id, number, name, note, component: Study }) => <div className="metal-study" id={id} key={id}>
-      <div className="metal-study-caption"><span className="metal-study-number">{number}</span><div><h2>{name}</h2><p>{note}</p></div><a href={id === 'metal-index' ? '/' : `#${id}`} aria-label={id === 'metal-index' ? 'Открыть Индекс с 3D-заставкой' : `Ссылка на вариант ${name}`}><Arrow diagonal /></a></div>
+      <div className="metal-study-caption"><span className="metal-study-number">{number}</span><div><h2>{name}</h2><p>{note}</p></div><a href={id === 'metal-index' ? import.meta.env.BASE_URL : `#${id}`} aria-label={id === 'metal-index' ? 'Открыть Индекс с 3D-заставкой' : `Ссылка на вариант ${name}`}><Arrow diagonal /></a></div>
       <Study onOpen={onOpen} />
     </div>)}
     <div className="metal-series-end"><span>ОДИН БРЕНД. ЧЕТЫРЕ КОМПОЗИЦИИ.</span><a href="#metal-original">Вернуться к началу <Arrow /></a></div>
   </div>;
 }
+
 

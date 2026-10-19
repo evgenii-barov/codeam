@@ -51,7 +51,7 @@ export default function App() {
   if (!concept || concept === '2/index') return <><Suspense fallback={<div style={{ minHeight: '100svh', background: '#10120f' }} />}><IndexExperience onOpen={setPanel} /></Suspense>{panel && <ContentPanel kind={panel} onClose={() => setPanel(null)} />}</>;
   if (isolated) return <main className="isolated"><Hero onOpen={setPanel} />{panel && <ContentPanel kind={panel} onClose={() => setPanel(null)} />}</main>;
   return <div className="studio-shell">
-    <header className="review-bar"><a className="review-brand" href="?concept=1" onClick={e => { e.preventDefault(); choose(0); }}><img src="/assets/brand-icon.svg" alt="" /><span>CODEAM <span>HERO STUDIES</span></span></a>
+    <header className="review-bar"><a className="review-brand" href="?concept=1" onClick={e => { e.preventDefault(); choose(0); }}><img src={import.meta.env.BASE_URL + 'assets/brand-icon.svg'} alt="" /><span>CODEAM <span>HERO STUDIES</span></span></a>
       <nav className="concept-tabs" aria-label="Варианты дизайна">{concepts.map((c, i) => <button key={c.number} className={i === active && !compare ? 'is-selected' : ''} aria-pressed={i === active && !compare} onClick={() => choose(i)}><span>{c.number}</span>{c.name}</button>)}</nav>
       <button className={`compare-toggle ${compare ? 'is-selected' : ''}`} onClick={() => setCompare(!compare)} aria-pressed={compare}><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M1 2h5v12H1zm9 0h5v12h-5z" stroke="currentColor" /></svg><span>Сравнить</span></button>
     </header>
@@ -60,4 +60,5 @@ export default function App() {
     {panel && <ContentPanel kind={panel} onClose={() => setPanel(null)} />}
   </div>;
 }
+
 

@@ -38,7 +38,7 @@ export default function EditorialHero({ onOpen }: { onOpen: (kind: OpenKind) => 
           <div className="ed-art" aria-hidden="true">
             <div className="ed-art-corner ed-art-corner--tl" />
             <span className="ed-art-caption">CODE / DESIGN / TEAM</span>
-            <img className="ed-object" src="/assets/brand-object.svg" alt="" />
+            <img className="ed-object" src={import.meta.env.BASE_URL + 'assets/brand-object.svg'} alt="" />
             <div className="ed-art-corner ed-art-corner--br" />
           </div>
         </div>
@@ -85,3 +85,4 @@ export default function EditorialHero({ onOpen }: { onOpen: (kind: OpenKind) => 
     </section>
   );
 }
+

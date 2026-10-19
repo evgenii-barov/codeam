@@ -6,7 +6,7 @@ import './closing-sections.css';
 type Props = { active: boolean; onOpen: (kind: PanelKind) => void };
 const description = 'CODEAM — современная студия, которая делает digital-продукты: сайты, веб-приложения и автоматизацию. Работаем по понятному процессу и показываем реальный прогресс.';
 function Signature() { return <div className="ab-signature"><strong>Александр Фролов</strong><span>Основатель, арт-директор</span></div>; }
-function Portrait() { return <div className="ab-portrait"><img src="/assets/brand-symbol.svg" alt="" /><span>Здесь будет фото Александра</span><div><span>CODEAM / ART DIRECTION</span><strong>За каждым проектом —<br />люди и их решения.</strong></div></div>; }
+function Portrait() { return <div className="ab-portrait"><img src={import.meta.env.BASE_URL + 'assets/brand-symbol.svg'} alt="" /><span>Здесь будет фото Александра</span><div><span>CODEAM / ART DIRECTION</span><strong>За каждым проектом —<br />люди и их решения.</strong></div></div>; }
 export function IndexAbout({ active, onOpen }: Props) {
   return <DesignVariants id="about" label="О студии" names={['Люди и подход', 'Типографический манифест', 'Редакция']} active={active} className="ab-section">{(variant, id) => <div className={`ab-layout ab-layout-${variant}`}>
     <div className="ab-visual"><Portrait /></div>
@@ -27,4 +27,5 @@ export function IndexTestimonials({ active }: { active: boolean }) {
     <div className="rv-quotes">{reviews.map((review, index) => <figure key={review.client}><div className="rv-top"><span aria-hidden="true">“</span><span>{review.type}</span><b>0{index + 1}</b></div><blockquote>{review.text}</blockquote><figcaption><strong>{review.client}</strong><span>{review.type}</span><Arrow diagonal /></figcaption></figure>)}</div>
   </div>}</DesignVariants>;
 }
+
 

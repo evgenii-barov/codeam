@@ -6,7 +6,7 @@ export default function MetalManifestHero({ onOpen }: HeroProps) {
   return (
     <section className="mm-hero" aria-label="Манифест — смелый digital">
       <div className="mm-image" aria-hidden="true">
-        <img src="/assets/sculpture.png" alt="" loading="lazy" />
+        <img src={import.meta.env.BASE_URL + 'assets/sculpture.png'} alt="" loading="lazy" />
       </div>
 
       <header className="mm-header">
@@ -39,3 +39,4 @@ export default function MetalManifestHero({ onOpen }: HeroProps) {
     </section>
   );
 }
+

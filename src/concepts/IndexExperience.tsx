@@ -235,7 +235,7 @@ export default function IndexExperience({ onOpen }: HeroProps) {
     </div>
 
     <div className="ix-intro" ref={intro} inert={isDocked} aria-hidden={isDocked}>
-      <header className="ix-intro-header"><img src="/assets/wordmark.svg" alt="CODEAM" width="119" /><button ref={skipButton} onClick={() => enter(true, true)} aria-label="Пропустить заставку" title="Пропустить заставку"><Arrow diagonal /></button></header>
+      <header className="ix-intro-header"><img src={import.meta.env.BASE_URL + 'assets/wordmark.svg'} alt="CODEAM" width="119" /><button ref={skipButton} onClick={() => enter(true, true)} aria-label="Пропустить заставку" title="Пропустить заставку"><Arrow diagonal /></button></header>
       <div className="ix-silhouette" key={cycle}><Symbol sculpture={!physical} /></div>
       <div className="ix-intro-bottom">
         <div className="ix-intro-control"><button className="ix-continue" onClick={() => enter(false, true)} disabled={phase !== 'ready'} aria-label="Листайте, чтобы продолжить" title="Продолжить"> <span aria-hidden="true">↓</span></button></div>
@@ -246,7 +246,7 @@ export default function IndexExperience({ onOpen }: HeroProps) {
     <section className="ix-hero" inert={phase !== 'active' || morph.section !== 'hero'} aria-hidden={phase !== 'active' || morph.section !== 'hero'} aria-label="CODEAM — дизайн и технологии">
       <div className="ix-upper">
         <header className="ix-rail ix-reveal">
-          <a href="/" className="ix-identity" aria-label="CODEAM — повторить заставку" onClick={event => { event.preventDefault(); replay(); }}><img src="/assets/brand-symbol.svg" alt="" /></a>
+          <a href={import.meta.env.BASE_URL} className="ix-identity" aria-label="CODEAM — повторить заставку" onClick={event => { event.preventDefault(); replay(); }}><img src={import.meta.env.BASE_URL + 'assets/brand-symbol.svg'} alt="" /></a>
           <div className="ix-index"><nav aria-label="Навигация сайта">{navigation.map(([kind, label], index) => kind === 'services' || kind === 'work' ? <a key={kind} href={kind === 'work' ? '#work' : '#services'} onClick={kind === 'work' ? showWorks : showServices}><span className="ix-number">0{index + 1}</span><span>{label}</span><Arrow diagonal /></a> : <button key={kind} onClick={() => onOpen(kind)}><span className="ix-number">0{index + 1}</span><span>{label}</span><Arrow diagonal /></button>)}</nav></div>
           <button className="ix-contact" onClick={() => onOpen('project')}><span>Обсудить<br /> проект</span><Arrow diagonal /></button>
         </header>
@@ -255,7 +255,7 @@ export default function IndexExperience({ onOpen }: HeroProps) {
           <h1 className="ix-heading ix-reveal" tabIndex={-1} ref={heading}>Развиваем сайты,<br />на которых бизнес<br /><span>получает заявки</span></h1>
         </div>
       </div>
-      <div className="ix-wordmark ix-reveal"><div className="ix-wordmark-motion"><img className="ix-wordmark-white" src="/assets/wordmark.svg" alt="CODEAM" /><img className="ix-wordmark-ink" src="/assets/wordmark.svg" alt="" aria-hidden="true" /></div></div>
+      <div className="ix-wordmark ix-reveal"><div className="ix-wordmark-motion"><img className="ix-wordmark-white" src={import.meta.env.BASE_URL + 'assets/wordmark.svg'} alt="CODEAM" /><img className="ix-wordmark-ink" src={import.meta.env.BASE_URL + 'assets/wordmark.svg'} alt="" aria-hidden="true" /></div></div>
       <div className="ix-footer ix-reveal"><button onClick={replay}>Смотреть интро <span aria-hidden="true">↺</span></button><a href="#studio" onClick={showOverview}>Далее <span aria-hidden="true">↓</span></a></div>
     </section>
     </div>
@@ -275,6 +275,7 @@ export default function IndexExperience({ onOpen }: HeroProps) {
     <IndexContact active={phase === 'active'} reducedMotion={reducedMotion} />
   </main>;
 }
+
 
 
 

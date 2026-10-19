@@ -35,7 +35,7 @@ function ContactScene({ active, reducedMotion }: { active: boolean; reducedMotio
   }, []);
   return <div ref={host} className="ct-world" data-ready={ready} aria-hidden="true">
     <div className="ct-scene-canvas">{mounted && target && !failed && <MatchedMetalScene placement="center" objectTarget={target} docked instantDock revealed active={active} reducedMotion={reducedMotion} lighting="original" onReady={() => setReady(true)} onError={() => setFailed(true)} />}</div>
-    {(!ready || failed) && <img className="ct-scene-fallback" src="/assets/brand-symbol.svg" alt="" />}
+    {(!ready || failed) && <img className="ct-scene-fallback" src={import.meta.env.BASE_URL + 'assets/brand-symbol.svg'} alt="" />}
   </div>;
 }
 function BriefForm() {
@@ -64,5 +64,6 @@ export default function IndexContact({ active, reducedMotion }: { active: boolea
     <header className="ct-heading"><span className="cl-eyebrow">Есть задача? Давайте обсудим.</span><h2 id={id} tabIndex={-1}>{variant === 2 ? <>Следующий<br /><em>шаг — вместе.</em></> : <>Покажите сайт —<br />определим<br /><em>следующий шаг.</em></>}</h2><p>Проведём первичный разбор и дадим краткие рекомендации. Если сайта ещё нет — спроектируем новый с нуля.</p></header>
     <div className="ct-scene ct-scene-slot"><span className="ct-scene-caption">CODEAM <i>Давайте создадим что-то стоящее.</i></span></div>
     <div className="ct-form-wrap"><span className="ct-form-title">Расскажите о проекте <Arrow diagonal /></span><BriefForm /></div>
-  </div>}</DesignVariants><footer className="cl-footer" inert={!active} aria-hidden={!active}><a href="#studio" aria-label="CODEAM — к студии"><img src="/assets/logo.svg" alt="CODEAM" /></a><nav aria-label="Навигация в подвале"><a href="#work">Работы</a><a href="#services">Услуги</a><a href="#about">Студия</a><a href="#contact">Обсудить проект <Arrow diagonal /></a></nav><span>© {new Date().getFullYear()} CODEAM</span></footer></>;
+  </div>}</DesignVariants><footer className="cl-footer" inert={!active} aria-hidden={!active}><a href="#studio" aria-label="CODEAM — к студии"><img src={import.meta.env.BASE_URL + 'assets/logo.svg'} alt="CODEAM" /></a><nav aria-label="Навигация в подвале"><a href="#work">Работы</a><a href="#services">Услуги</a><a href="#about">Студия</a><a href="#contact">Обсудить проект <Arrow diagonal /></a></nav><span>© {new Date().getFullYear()} CODEAM</span></footer></>;
 }
+

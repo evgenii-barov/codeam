@@ -17,7 +17,7 @@ export default function MetalIndexHero({ onOpen }: HeroProps) {
       <header className="mi-rail">
         <div className="mi-identity">
           <a className="mi-mark" href="#" aria-label="CODEAM — главная" onClick={event => { event.preventDefault(); window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); }}>
-            <img src="/assets/brand-icon.svg" alt="" width="50" height="48" />
+            <img src={import.meta.env.BASE_URL + 'assets/brand-icon.svg'} alt="" width="50" height="48" />
           </a>
           <p className="mi-studio">Независимая<br />digital-студия</p>
         </div>
@@ -31,7 +31,7 @@ export default function MetalIndexHero({ onOpen }: HeroProps) {
       </header>
 
       <div className="mi-stage">
-        <img className="mi-sculpture" src="/assets/sculpture.png" alt="" />
+        <img className="mi-sculpture" src={import.meta.env.BASE_URL + 'assets/sculpture.png'} alt="" />
         <div className="mi-stage-top"><span>ДИЗАЙН & ТЕХНОЛОГИИ</span><span aria-hidden="true">[ C / D ]</span></div>
         <div className="mi-heading">
           <h1>Смысл.<br />Форма.<br /><span>Действие.</span></h1>
@@ -43,7 +43,8 @@ export default function MetalIndexHero({ onOpen }: HeroProps) {
       </div>
     </div>
 
-    <div className="mi-wordmark"><img src="/assets/wordmark.svg" alt="CODEAM" /></div>
+    <div className="mi-wordmark"><img src={import.meta.env.BASE_URL + 'assets/wordmark.svg'} alt="CODEAM" /></div>
     <footer className="mi-footer"><span>BUILD. LAUNCH. SCALE.</span><span className="mi-footer-center"><span className="mi-footer-dot" aria-hidden="true" />Идея становится реальностью.</span><span>© 2026</span></footer>
   </section>;
 }
+

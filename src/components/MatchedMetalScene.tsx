@@ -109,7 +109,7 @@ export default function MatchedMetalScene(props: MatchedMetalSceneProps) {
         composition.add(idlePivot);
         scene.add(composition);
 
-        const photo = new THREE.TextureLoader().load('/assets/sculpture.png', () => {
+        const photo = new THREE.TextureLoader().load(import.meta.env.BASE_URL + 'assets/sculpture.png', () => {
           if (disposed || unmounted) { photo.dispose(); return; }
           loaded = true;
           invalidate();
@@ -364,3 +364,4 @@ export default function MatchedMetalScene(props: MatchedMetalSceneProps) {
   useEffect(() => { control.current?.update(); }, [props.docked, props.dockTarget, props.reducedMotion, props.active, props.introHeight, props.revealed, props.lighting, props.instantDock, props.objectTarget]);
   return <div ref={container} data-scene="loading" data-scene-technique="calibrated-photo-geometry" aria-hidden="true" style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }} />;
 }
+

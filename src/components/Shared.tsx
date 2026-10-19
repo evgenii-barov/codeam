@@ -9,7 +9,7 @@ export function Arrow({ diagonal = false, className = '' }: { diagonal?: boolean
 }
 
 export function Brand({ dark = false }: { dark?: boolean }) {
-  return <span className={`brand ${dark ? 'brand--dark' : ''}`}><img src="/assets/logo.svg" alt="CODEAM — Build. Launch. Scale." width="180" height="28" /></span>;
+  return <span className={`brand ${dark ? 'brand--dark' : ''}`}><img src={import.meta.env.BASE_URL + 'assets/logo.svg'} alt="CODEAM — Build. Launch. Scale." width="180" height="28" /></span>;
 }
 
 export function Header({ dark = false, onOpen }: HeroProps & { dark?: boolean }) {
@@ -30,3 +30,4 @@ export function ActionButton({ children, onClick, dark = false, className = '' }
 export function SectionMarker({ children }: { children: ReactNode }) {
   return <span className="section-marker"><span aria-hidden="true" className="marker-cross">+</span>{children}</span>;
 }
+
