@@ -147,3 +147,57 @@
  .ct-world .ct-scene-fallback { left:20%; top:28%; width:60%; }
  .ct-section .ct-heading { text-shadow:0 2px 18px #000; }
 }
+/* Keep the closing invitation and its complete form in one viewport.
+   The scene slot sizes the model, rather than imposing a fixed section height. */
+.ct-section { min-height: 100svh; padding-block: clamp(18px,3svh,32px); }
+.ct-section > .dv-bar { flex: none; margin-bottom: clamp(12px,2svh,24px); }
+.ct-section .dv-body, .ct-section .dv-deck, .ct-section .dv-panel { min-height: 0; }
+.ct-section .ct-layout { min-height: 0; grid-template-rows: auto 1fr; align-content: center; row-gap: 12px; }
+.ct-section .ct-heading h2 { font-size: clamp(28px,min(3vw,4.6svh),56px); margin: 12px 0; line-height: 1.12; }
+.ct-section .ct-heading p { margin: 0; font-size: 13px; line-height: 1.5; max-width: 52ch; }
+.ct-section .ct-heading .cl-eyebrow { font-size: 9px; }
+.ct-section .ct-scene { height: 100%; min-height: 220px; align-self: stretch; }
+.ct-section .ct-form-wrap { padding: clamp(16px,2.4svh,28px); align-self: center; }
+.ct-section .ct-form { gap: clamp(10px,1.6svh,18px) 20px; }
+.ct-section .ct-kind { margin: 0; }
+.ct-section .ct-kind span { padding: 11px 16px; }
+.ct-section .ct-field { gap: 5px; }
+.ct-section .ct-field:nth-of-type(3), .ct-section .ct-field:nth-of-type(4) { grid-column: auto; }
+.ct-section .ct-field input, .ct-section .ct-field textarea { padding: 8px 0 10px; }
+.ct-section .ct-field textarea { resize: none; }
+.ct-section .ct-form-title { margin-bottom: 20px; font-size: 20px; }
+.ct-section .ct-layout-1 { grid-template-rows: auto 1fr; }
+.ct-section .ct-layout-1 .ct-heading { align-items: center; }
+.ct-section .ct-layout-1 .ct-heading p { margin: 0; align-self: center; }
+.ct-section .ct-layout-1 .ct-heading h2 br:nth-of-type(2) { display: none; }
+.ct-section .ct-layout-2 { grid-template-rows: auto 1fr; }
+.ct-section .ct-layout-2 .ct-heading h2 { font-size: clamp(32px,min(4vw,6svh),70px); }
+.ct-section .ct-layout-2 .ct-form-wrap { grid-row: 1 / 3; }
+@media (min-width: 701px) and (min-height: 650px) {
+ .ct-section { height: 100svh; }
+}
+@media (max-width: 700px) {
+ .ct-section { padding-block: 16px; }
+ .ct-section > .dv-bar { margin-bottom: 14px; align-items: center; }
+ .ct-section .dv-label { font-size: 8px; letter-spacing: .03em; gap: 6px; }
+ .ct-section .dv-version { font-size: 9px; gap: 4px; }
+ .ct-section .ct-layout { display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+ .ct-section .ct-heading { display: block; }
+ .ct-section .ct-heading .cl-eyebrow { display: none; }
+ .ct-section .ct-heading h2, .ct-section .ct-layout-2 .ct-heading h2 { font-size: clamp(24px,6.8vw,40px); margin: 0 0 10px; }
+ .ct-section .ct-heading h2 br { display: none; }
+ .ct-section .ct-heading h2 br::after { content: ' '; }
+ .ct-section .ct-heading p { font-size: 12px; line-height: 1.4; }
+ .ct-section .ct-scene { position: absolute; left: -12%; top: 0; width: 75%; height: 100%; min-height: 0; z-index: -1; }
+ .ct-section .ct-scene-caption { display: none; }
+ .ct-section .ct-form-wrap { width: 100%; padding: 16px; background: rgba(10,13,9,.76); }
+ .ct-section .ct-form { gap: 12px; }
+ .ct-section .ct-form-title { display: none; }
+ .ct-section .ct-field { font-size: 11px; }
+ .ct-section .ct-field > span { font-size: 9px; }
+ .ct-section .ct-field input, .ct-section .ct-field textarea { font-size: 16px; min-height: 40px; }
+ .ct-section .ct-field:nth-of-type(3), .ct-section .ct-field:nth-of-type(4) { grid-column: 1 / -1; }
+ .ct-section .ct-kind span { padding: 12px 14px; }
+ .ct-section .ct-form-note { font-size: 9px; line-height: 1.4; }
+ .ct-section .dv-cta { padding: 12px; min-height: 44px; font-size: 12px; }
+}

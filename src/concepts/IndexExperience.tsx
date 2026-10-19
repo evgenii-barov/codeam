@@ -43,7 +43,7 @@ export default function IndexExperience({ onOpen }: HeroProps) {
   const canvasHost = useRef<HTMLDivElement>(null);
   const intro = useRef<HTMLDivElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
-  const skipButton = useRef<HTMLButtonElement>(null);
+  const continueButton = useRef<HTMLButtonElement>(null);
   const morphTrack = useRef<HTMLDivElement>(null);
   const morphStage = useRef<HTMLDivElement>(null);
   const morph = useIndexMorph({ track: morphTrack, stage: morphStage, enabled: phase === 'active', reducedMotion });
@@ -96,8 +96,8 @@ export default function IndexExperience({ onOpen }: HeroProps) {
   }, []);
 
   useEffect(() => {
-    if (cycle > 0) skipButton.current?.focus({ preventScroll: true });
-  }, [cycle]);
+    if (cycle > 0 && phase === 'ready') continueButton.current?.focus({ preventScroll: true });
+  }, [cycle, phase]);
 
   useLayoutEffect(() => {
     const restoration = history.scrollRestoration;
@@ -235,10 +235,10 @@ export default function IndexExperience({ onOpen }: HeroProps) {
     </div>
 
     <div className="ix-intro" ref={intro} inert={isDocked} aria-hidden={isDocked}>
-      <header className="ix-intro-header"><img src={import.meta.env.BASE_URL + 'assets/wordmark.svg'} alt="CODEAM" width="119" /><button ref={skipButton} onClick={() => enter(true, true)} aria-label="Пропустить заставку" title="Пропустить заставку"><Arrow diagonal /></button></header>
+      <header className="ix-intro-header"><img src={import.meta.env.BASE_URL + 'assets/wordmark.svg'} alt="CODEAM" width="119" /></header>
       <div className="ix-silhouette" key={cycle}><Symbol sculpture={!physical} /></div>
       <div className="ix-intro-bottom">
-        <div className="ix-intro-control"><button className="ix-continue" onClick={() => enter(false, true)} disabled={phase !== 'ready'} aria-label="Листайте, чтобы продолжить" title="Продолжить"> <span aria-hidden="true">↓</span></button></div>
+        <div className="ix-intro-control"><button ref={continueButton} className="ix-continue" onClick={() => enter(false, true)} disabled={phase !== 'ready'} aria-label="Листайте, чтобы продолжить" title="Продолжить"> <span aria-hidden="true">↓</span></button></div>
         
       </div>
     </div>
