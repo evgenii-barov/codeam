@@ -20,7 +20,7 @@ const directions = [
 
 // Names supplied in the client's reference; no invented logos or results.
 const clients = ['Весна', 'Diamond', 'Щёкино', 'Сильвер', 'READY-FLY', 'SYNAPSE'];
-const variants = ['Исходный', 'Редакционный', 'Манифест', 'От задачи'];
+const variantCount = 4;
 const lead = 'Создаём сайты и веб-приложения, дорабатываем действующие проекты и настраиваем продвижение. Начнём с первичного разбора вашего сайта.';
 
 function Trust() {
@@ -57,7 +57,7 @@ function Start({ onOpen, onWorks }: Pick<IndexOverviewProps, 'onOpen' | 'onWorks
 
 export default function IndexOverview({ active, onHome, onWorks, onOpen }: IndexOverviewProps) {
   const [variant, setVariant] = useState(1);
-  const change = (direction: number) => setVariant(current => (current + direction + variants.length) % variants.length);
+  const change = (direction: number) => setVariant(current => (current + direction + variantCount) % variantCount);
   const headingId = (index: number) => variant === index ? 'studio-heading' : `studio-heading-${index}`;
   return <section id="studio" className="ix-overview ov-comparison" aria-labelledby="studio-heading" inert={!active} aria-hidden={!active} onKeyDown={event => {
     if (event.target instanceof HTMLElement && event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
@@ -69,7 +69,7 @@ export default function IndexOverview({ active, onHome, onWorks, onOpen }: Index
           <img src={import.meta.env.BASE_URL + 'assets/brand-symbol.svg'} className="is-brand-symbol" alt="" />
           <span className="is-brand-wordmark"><img src={import.meta.env.BASE_URL + 'assets/wordmark.svg'} alt="" /></span>
         </a>
-        <div className="ov-version" aria-live="polite" aria-atomic="true"><span>0{variant + 1} <i>/ 04</i></span><span>{variants[variant]}</span></div>
+        <div className="ov-version" aria-live="polite" aria-atomic="true"><span>0{variant + 1} <i>/ 0{variantCount}</i></span></div>
       </header>
 
       <div className="is-body">

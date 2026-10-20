@@ -1,0 +1,23 @@
+.wd-controls { min-height:44px; }
+.wd-selection { display:flex; align-items:center; justify-content:center; gap:32px; min-width:0; color:var(--wc-ink,#f2f0e8); }
+.wd-master { display:grid; gap:5px; min-width:48px; }
+.wd-master > span,.wd-layout > span { font-size:10px; line-height:1.3; color:var(--wc-muted,#a5a5a0); }
+.wd-master > span { font-variant-numeric:tabular-nums; font-size:12px; color:var(--wc-ink,#f2f0e8); }
+.wd-master strong { font-size:12px; line-height:1.4; font-weight:500; }
+.wd-layout { display:flex; align-items:center; gap:10px; }
+.wd-layout select { min-height:44px; max-width:240px; padding:0 30px 0 12px; border:1px solid var(--wc-rule,#ffffff36); border-radius:0; font:inherit; font-size:12px; color:var(--wc-ink,#f2f0e8); background:var(--wc-surface,#121212); color-scheme:dark; cursor:pointer; }
+.wd-layout select:hover { border-color:var(--wc-ink,#f2f0e8); }
+.wd-layout select:focus-visible { outline:2px solid var(--wc-ink,#f2f0e8); outline-offset:3px; }
+.ix-works[data-theme='light'] .wd-layout select { color-scheme:light; }
+@media(max-width:700px) {
+  .wd-controls { gap:10px; align-items:center; }
+  .wd-controls > button { flex:0 0 40px; }
+  .wd-selection { flex-direction:row; gap:16px; flex:0 1 auto; text-align:center; }
+  .wd-master { gap:3px; }
+  .wd-master strong { font-size:11px; }
+  .wd-master > span { font-size:11px; }
+  .wd-layout { min-width:0; width:100%; justify-content:center; }
+  .wd-layout > span { display:none; }
+  .wd-layout select { width:100%; max-width:240px; min-width:0; min-height:38px; padding-left:8px; padding-right:16px; font-size:11px; }
+  .ix-works[data-master='reel'] .iw-reel { --iw-art-top:260px; }
+}

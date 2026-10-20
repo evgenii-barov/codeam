@@ -1,0 +1,130 @@
+/* Master 03 is an overview, with independent compositions of the same four projects. */
+.wcat {
+  position:relative; z-index:1; display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:24px 40px; padding:30px var(--ix-gutter) 36px; flex:1; align-content:center;
+  color:var(--wc-ink); opacity:0; transform:translateY(16px);
+  transition:opacity .4s,transform .5s;
+}
+.iw-reel[data-introduced='true'] .wcat {
+  opacity:1; transform:none;
+  transition:opacity .9s .12s,transform 1.1s cubic-bezier(.22,.61,.36,1) .12s;
+}
+.wcat-entry {
+  min-width:0; display:grid; grid-template-columns:minmax(0,.95fr) minmax(0,1fr);
+  align-items:center; gap:clamp(16px,2vw,32px); padding-top:18px;
+  border-top:1px solid var(--wc-rule); color:inherit; text-decoration:none;
+}
+.wcat-visual { min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
+.wcat-media {
+  width:min(100%,calc((100svh - 410px) * .666667)); aspect-ratio:4/3; overflow:hidden;
+  background:var(--wcat-media-background,var(--wc-surface));
+}
+.wcat-media img { display:block; width:100%; height:100%; object-fit:contain; object-position:center; }
+.wcat-reference { color:var(--wc-muted); font-size:9px; line-height:1.4; letter-spacing:.08em; text-transform:uppercase; }
+.wcat-copy { min-width:0; }
+.wcat-copy h3 {
+  margin:0 0 14px; font:450 clamp(24px,2vw,36px)/1.12 var(--font-display);
+  letter-spacing:-.035em; overflow-wrap:break-word; text-wrap:balance;
+}
+.wcat-kind { display:block; color:var(--wc-secondary); font-size:11px; line-height:1.5; }
+.wcat-copy p { max-width:34ch; margin:12px 0 0; color:var(--wc-muted); font-size:12px; line-height:1.65; }
+.wcat-action { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-top:24px; font-size:12px; }
+.wcat-action svg { flex-shrink:0; color:var(--wc-detail); transition:transform .25s; }
+.wcat-entry:hover .wcat-action svg { transform:translate(3px,-3px); }
+.wcat-entry:focus-visible { outline:2px solid var(--wc-ink); outline-offset:7px; }
+.wcat-entry:hover h3 { text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:6px; }
+.wcat ::selection { background:#d7ff36; color:#141611; }
+
+/* The lead project occupies one column; the remaining three form a compact index. */
+.wcat[data-composition='1'] { grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:16px 5vw; }
+.wcat[data-composition='1'] .wcat-entry:first-child {
+  grid-row:span 3; grid-template-columns:1fr; gap:16px; align-content:center;
+}
+.wcat[data-composition='1'] .wcat-entry:first-child .wcat-media {
+  width:min(100%,calc((100svh - 440px) * 1.333333));
+}
+.wcat[data-composition='1'] .wcat-entry:first-child .wcat-copy {
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(180px,.8fr); column-gap:24px;
+}
+.wcat[data-composition='1'] .wcat-entry:first-child h3 { font-size:clamp(32px,3.8vw,62px); grid-row:span 2; margin:0; }
+.wcat[data-composition='1'] .wcat-entry:first-child .wcat-action { grid-column:1/-1; margin-top:16px; }
+.wcat[data-composition='1'] .wcat-entry:not(:first-child) {
+  grid-template-columns:minmax(120px,.55fr) minmax(0,1fr); padding-top:14px; gap:24px;
+}
+.wcat[data-composition='1'] .wcat-entry:not(:first-child) .wcat-media {
+  width:min(100%,calc((100svh - 490px) * .444444));
+}
+.wcat[data-composition='1'] .wcat-entry:not(:first-child) h3 { font-size:clamp(23px,1.75vw,32px); margin-bottom:8px; }
+.wcat[data-composition='1'] .wcat-entry:not(:first-child) .wcat-copy p { margin-top:8px; }
+.wcat[data-composition='1'] .wcat-entry:not(:first-child) .wcat-action { margin-top:12px; }
+
+/* Four equal-width columns let visitors compare the whole body of work at a glance. */
+.wcat[data-composition='2'] { grid-template-columns:repeat(4,minmax(0,1fr)); gap:24px; }
+.wcat[data-composition='2'] .wcat-entry { display:flex; flex-direction:column; align-items:stretch; gap:24px; }
+.wcat[data-composition='2'] .wcat-media { width:min(100%,calc((100svh - 590px) * 1.333333)); }
+.wcat[data-composition='2'] .wcat-copy { display:flex; flex:1; flex-direction:column; }
+.wcat[data-composition='2'] h3 { font-size:clamp(24px,2vw,36px); min-height:2.24em; }
+.wcat[data-composition='2'] .wcat-copy p { flex:1; margin-bottom:24px; }
+.wcat[data-composition='2'] .wcat-action { border-top:1px solid var(--wc-rule); padding-top:18px; margin-top:auto; }
+
+/* The compact editorial list makes names and scope the primary navigation. */
+.wcat[data-composition='3'] { grid-template-columns:1fr; gap:0; }
+.wcat[data-composition='3'] .wcat-entry {
+  grid-template-columns:clamp(96px,10vw,160px) minmax(0,1fr); gap:clamp(24px,4vw,72px); padding:14px 0;
+}
+.wcat[data-composition='3'] .wcat-entry:last-child { border-bottom:1px solid var(--wc-rule); }
+.wcat[data-composition='3'] .wcat-media { width:min(100%,calc((100svh - 490px) * .333333)); }
+.wcat[data-composition='3'] .wcat-reference { font-size:8px; }
+.wcat[data-composition='3'] .wcat-copy {
+  display:grid; grid-template-columns:minmax(0,1.3fr) minmax(100px,.65fr) minmax(0,1fr) auto;
+  align-items:center; gap:clamp(16px,2vw,36px);
+}
+.wcat[data-composition='3'] h3 { margin:0; font-size:clamp(24px,2.2vw,42px); }
+.wcat[data-composition='3'] .wcat-copy p,.wcat[data-composition='3'] .wcat-action { margin:0; }
+
+@media(max-width:1100px) {
+  .wcat { gap:24px; }
+  .wcat-copy h3 { font-size:25px; }
+  .wcat[data-composition='1'] { column-gap:28px; }
+  .wcat[data-composition='1'] .wcat-entry:first-child .wcat-copy { display:block; }
+  .wcat[data-composition='1'] .wcat-entry:first-child h3 { margin-bottom:14px; }
+  .wcat[data-composition='1'] .wcat-entry:not(:first-child) { gap:16px; }
+  .wcat[data-composition='3'] .wcat-copy { grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto; }
+  .wcat[data-composition='3'] h3 { grid-row:span 2; }
+  .wcat[data-composition='3'] .wcat-copy p { grid-column:2; grid-row:2; }
+  .wcat[data-composition='3'] .wcat-action { grid-column:3; grid-row:1 / span 2; }
+}
+@media(max-width:800px) {
+  .wcat,.wcat[data-composition='1'],.wcat[data-composition='2'] { grid-template-columns:repeat(2,minmax(0,1fr)); align-content:start; padding-top:24px; gap:30px 24px; }
+  .wcat .wcat-entry,.wcat[data-composition='1'] .wcat-entry:not(:first-child) { grid-template-columns:1fr; gap:18px; align-content:start; }
+  .wcat[data-composition='1'] .wcat-entry:first-child { grid-column:1/-1; grid-row:auto; grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+  .wcat .wcat-media,.wcat[data-composition='1'] .wcat-entry:first-child .wcat-media,.wcat[data-composition='1'] .wcat-entry:not(:first-child) .wcat-media,.wcat[data-composition='2'] .wcat-media { width:100%; }
+  .wcat[data-composition='1'] .wcat-entry:first-child h3 { font-size:32px; }
+  .wcat[data-composition='1'] .wcat-entry:last-child { grid-column:1/-1; grid-template-columns:1fr 1fr; }
+  .wcat[data-composition='2'] h3 { min-height:0; }
+  .wcat[data-composition='3'] { gap:0; }
+  .wcat[data-composition='3'] .wcat-entry { grid-template-columns:96px minmax(0,1fr); gap:20px; padding:24px 0; }
+  .wcat[data-composition='3'] .wcat-copy { display:block; }
+  .wcat[data-composition='3'] h3 { font-size:24px; margin-bottom:10px; }
+  .wcat[data-composition='3'] .wcat-copy p { margin-top:10px; }
+  .wcat[data-composition='3'] .wcat-action { margin-top:18px; }
+}
+@media(max-width:500px) {
+  .wcat,.wcat[data-composition='1'],.wcat[data-composition='2'] { grid-template-columns:1fr; gap:32px; }
+  .wcat[data-composition='1'] .wcat-entry:first-child,.wcat[data-composition='1'] .wcat-entry:last-child { grid-template-columns:1fr; }
+  .wcat-copy h3,.wcat[data-composition='2'] h3 { font-size:28px; }
+  .wcat-copy p { max-width:none; }
+  .wcat[data-composition='3'] .wcat-entry { grid-template-columns:84px minmax(0,1fr); gap:16px; }
+  .wcat[data-composition='3'] h3 { font-size:22px; }
+  .wcat[data-composition='3'] .wcat-reference { font-size:8px; }
+}
+@media(max-height:700px) and (min-width:801px) {
+  .wcat .wcat-media,.wcat[data-composition='1'] .wcat-entry:first-child .wcat-media,
+  .wcat[data-composition='1'] .wcat-entry:not(:first-child) .wcat-media,
+  .wcat[data-composition='2'] .wcat-media { width:min(100%,320px); }
+  .wcat[data-composition='3'] .wcat-media { width:100%; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .wcat,.iw-reel[data-introduced='true'] .wcat { opacity:1; transform:none; transition:none; }
+  .wcat-action svg { transition:none; }
+}

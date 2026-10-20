@@ -11,7 +11,6 @@
 .ov-version { display: flex; align-items: center; gap: 22px; padding: 6px 0; font-size: 11px; letter-spacing: .02em; }
 .ov-version > span:first-child { font-variant-numeric: tabular-nums; }
 .ov-version i { font-style: normal; color: #85887e; margin-left: 5px; }
-.ov-version > span:last-child { min-width: 100px; }
 .ov-controls { position: relative; flex: none; height: 44px; margin-bottom: 24px; z-index: 5; pointer-events: none; }
 .ov-controls button { position: absolute; top: 0; display: grid; place-items: center; width: 40px; height: 44px; padding: 0; border: 1px solid var(--is-rule); background: #fafaf8; color: var(--is-ink); pointer-events: auto; transition: background .2s, border-color .2s; }
 .ov-controls button:hover { background: #d7ff36; border-color: #d7ff36; }
@@ -91,7 +90,6 @@
 @media (max-width: 700px) {
   .ov-comparison .is-brand-bar { margin-bottom: 22px; }
   .ov-version { flex-direction: column; align-items: flex-end; gap: 7px; font-size: 10px; }
-  .ov-version > span:last-child { min-width: 0; }
   .ov-deck { margin-inline: 0; padding-top: 0; }
   .ov-controls { height: 48px; }
   .ov-controls button { top: 0; width: 48px; height: 44px; }

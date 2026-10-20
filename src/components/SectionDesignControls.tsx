@@ -6,7 +6,7 @@ export default function SectionDesignControls({ label, names, value, onChange }:
 }) {
   return <div className="sp-design-controls" role="group" aria-label={`Варианты: ${label}`}>
     <button onClick={() => onChange((value + names.length - 1) % names.length)} aria-label={`Предыдущий вариант: ${label}`}><span className="sp-back"><Arrow /></span></button>
-    <span aria-live="polite" aria-atomic="true">0{value + 1} / 0{names.length}<i>{names[value]}</i></span>
+    <span aria-live="polite" aria-atomic="true">0{value + 1} / 0{names.length}</span>
     <button onClick={() => onChange((value + 1) % names.length)} aria-label={`Следующий вариант: ${label}`}><Arrow /></button>
   </div>;
 }

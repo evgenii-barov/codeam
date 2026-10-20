@@ -14,7 +14,7 @@ export default function DesignVariants({ id, label, names, active, className, si
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') { event.preventDefault(); change(event.key === 'ArrowRight' ? 1 : -1); }
   }}>
     {background}
-    <div className="dv-bar"><span className="dv-label"><b aria-hidden="true">//</b>{label}</span><span className="dv-version" aria-live="polite" aria-atomic="true"><span>0{current + 1} <i>/ 0{names.length}</i></span>{names[current]}</span>
+    <div className="dv-bar"><span className="dv-label"><b aria-hidden="true">//</b>{label}</span><span className="dv-version" aria-live="polite" aria-atomic="true"><span>0{current + 1} <i>/ 0{names.length}</i></span></span>
       <div className="dv-controls" role="group" aria-label={`Варианты: ${label}`}>
         <button className="dv-prev" onClick={() => change(-1)} aria-label={`Предыдущий вариант: ${label}`}><Arrow /></button>
         <button className="dv-next" onClick={() => change(1)} aria-label={`Следующий вариант: ${label}`}><Arrow /></button>

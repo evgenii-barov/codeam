@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Arrow } from '../components/Shared';
 import type { PanelKind } from '../components/Shared';
 import ProjectPreview from '../cases/ProjectPreview';
@@ -8,12 +8,23 @@ import type { AmbientColor } from './caseAmbient';
 import { useSectionWheelSteps } from './useSectionWheelSteps';
 import './index-works.css';
 import './works-variants.css';
-import { scrollPageTo } from '../scroll/pageScroll';
+import WorksCarousel from './WorksCarousel';
+import WorksCatalog from './WorksCatalog';
+import WorksFold from './WorksFold';
+import WorksAtlas from './WorksAtlas';
+import './works-design-controls.css';
+import { setPageScroll, scrollPageTo } from '../scroll/pageScroll';
 import type { CSSProperties } from 'react';
 
 const worksTitle = 'Избранные работы';
 
-const workVariants = ['Вертикальная лента', 'Горизонтальная галерея', 'Индекс проектов', 'Стопка проектов'];
+const workMasters = [
+  { id: 'carousel', layouts: 4 },
+  { id: 'reel', layouts: 4 },
+  { id: 'catalog', layouts: 4 },
+  { id: 'fold', layouts: 4 },
+  { id: 'atlas', layouts: 4 },
+];
 
 function WorksComposition({ variant, current, onNavigate, onAmbient }: {
   variant: number; current: number;
@@ -42,14 +53,43 @@ export default function IndexWorks({ active, followingSections, leadingSections 
   onOpen: (kind: PanelKind) => void;
   followingSections?: string[]; leadingSections?: string[];
 }) {
-  const [variant, setVariant] = useState(0);
+  const [masterIndex, setMasterIndex] = useState(0);
+  const [layouts, setLayouts] = useState(() => workMasters.map(() => 0));
+  const master = workMasters[masterIndex];
+  const layout = layouts[masterIndex];
+  const layoutKey = masterIndex * 10 + layout;
+  // Keep the original four scroll compositions mapped to their existing styles.
+  const variant = masterIndex === 1 ? layout + 1 : masterIndex === 0 ? 0 : 5;
+  const [carouselTheme, setCarouselTheme] = useState<'dark' | 'light'>('dark');
   const [staticMode, setStaticMode] = useState(false);
   const [current, setCurrent] = useState(0);
   const [titleVisible, setTitleVisible] = useState(false);
   const [ambient, setAmbient] = useState<AmbientColor[]>(() => projects.map(project => project.ambient));
   const reel = useRef<HTMLDivElement>(null);
-  useSectionWheelSteps(reel, active, followingSections, leadingSections);
-  const composition = variant > 0 && !staticMode;
+  const pendingAnchor = useRef<number | null>(null);
+  const overview = masterIndex !== 1;
+  const rememberAnchor = () => {
+    const rect = reel.current?.getBoundingClientRect();
+    if (rect && rect.top <= 0 && rect.bottom > 0) pendingAnchor.current = rect.top + scrollY;
+  };
+  const changeMaster = (direction: number) => {
+    rememberAnchor();
+    setCurrent(0);
+    setMasterIndex(value => (value + direction + workMasters.length) % workMasters.length);
+  };
+  const changeLayout = (value: number) => {
+    rememberAnchor();
+    // Scroll compositions share the same stops, so compare them on the current case.
+    if (masterIndex === 1 && pendingAnchor.current !== null) pendingAnchor.current = scrollY;
+    setLayouts(previous => previous.map((selected, index) => index === masterIndex ? value : selected));
+  };
+  useLayoutEffect(() => {
+    if (pendingAnchor.current === null) return;
+    setPageScroll(pendingAnchor.current);
+    pendingAnchor.current = null;
+  }, [layoutKey]);
+  useSectionWheelSteps(reel, active, followingSections, leadingSections, layoutKey);
+  const composition = masterIndex === 1 && layout > 0 && !staticMode;
   const updateAmbient = (index: number, color: AmbientColor) => setAmbient(previous => previous.map((value, i) => i === index ? color : value));
   const navigate = (index: number) => {
     const step = reel.current?.querySelector<HTMLElement>(`.iw-step[data-index="${index}"]`);
@@ -92,39 +132,51 @@ export default function IndexWorks({ active, followingSections, leadingSections 
       window.removeEventListener('resize', observeReadingLine);
       steps.forEach(step => { delete step.dataset.near; });
     };
-  }, [active]);
+  }, [active, layoutKey]);
 
-  return <section id="work" className="ix-works" data-variant={variant} data-composition={composition} aria-labelledby="works-heading" inert={!active} aria-hidden={!active}>
-    <div className="iw-reel" ref={reel} data-current={current + 1} data-introduced={active && titleVisible}>
-      <div className="iw-ambient" aria-hidden="true">
+  return <section id="work" className="ix-works" data-master={master.id} data-layout={layout} data-variant={variant} data-composition={composition} data-gallery={overview} data-theme={overview ? carouselTheme : undefined} aria-labelledby="works-heading" inert={!active} aria-hidden={!active}>
+    <div className="iw-reel" ref={reel} data-gallery={overview} data-current={current + 1} data-introduced={active && titleVisible}>
+      {!overview && <div className="iw-ambient" aria-hidden="true">
         {ambient.map((color, index) => <div key={projects[index].name} className="iw-ambient-light" data-active={titleVisible && current === index} style={{ backgroundImage: `radial-gradient(ellipse at 50% 42%, rgba(${color.join(',')}, .42) 0%, rgba(${color.join(',')}, .18) 42%, transparent 76%), radial-gradient(ellipse at 85% 70%, rgba(${color.join(',')}, .14), transparent 65%)` }} />)}
-      </div>
+      </div>}
       <div className="iw-overlay">
         <div className="iw-top">
-        <div className="iw-variants" role="group" aria-label="Варианты оформления кейсов">
-          <button className="iw-variant-prev" onClick={() => setVariant(value => (value + 3) % 4)} aria-label="Предыдущий вариант кейсов"><Arrow /></button>
-          <span aria-live="polite"><i>0{variant + 1} / 04</i>{workVariants[variant]}</span>
-          <button onClick={() => setVariant(value => (value + 1) % 4)} aria-label="Следующий вариант кейсов"><Arrow /></button>
+        <div className="iw-variants wd-controls" role="group" aria-label="Оформление кейсов">
+          <button type="button" className="iw-variant-prev" onClick={() => changeMaster(-1)} aria-label="Предыдущий мастер-класс кейсов"><Arrow /></button>
+          <div className="wd-selection">
+            <div className="wd-master" aria-live="polite" aria-label={`Мастер-класс ${masterIndex + 1} из ${workMasters.length}`}><span>0{masterIndex + 1} / 0{workMasters.length}</span></div>
+            <label className="wd-layout"><select aria-label="Композиция кейсов" value={layout} onChange={event => changeLayout(Number(event.target.value))}>
+              {Array.from({length:master.layouts}, (_, index) => <option key={index} value={index}>0{index + 1}</option>)}
+            </select></label>
+          </div>
+          <button type="button" onClick={() => changeMaster(1)} aria-label="Следующий мастер-класс кейсов"><Arrow /></button>
         </div>
         <header className="iw-reel-header">
           <span className="iw-kicker">CODEAM / PORTFOLIO</span>
           <h2 id="works-heading" tabIndex={-1} aria-label={worksTitle} data-revealed={titleVisible}>
             {worksTitle.split(' ').map((word, wordIndex) => <span className="iw-title-word" aria-hidden="true" key={word}>{[...word].map((letter, index) => <span className="iw-title-letter" key={index} style={{ transitionDelay: titleVisible ? `${(index + (wordIndex ? 10 : 0)) * 35}ms` : '0ms' }}>{letter}</span>)}{wordIndex === 0 && '\u00a0'}</span>)}
           </h2>
-          <span className="iw-scroll-hint">{variant === 1 ? 'Листайте проекты' : 'Листайте вниз'} <span aria-hidden="true">{variant === 1 ? '→' : '↓'}</span></span>
+          {overview ? <div className="wc-theme-switch" role="group" aria-label="Цветовое оформление секции кейсов">
+            <button type="button" aria-pressed={carouselTheme === 'light'} onClick={() => setCarouselTheme('light')}>Светлый</button>
+            <button type="button" aria-pressed={carouselTheme === 'dark'} onClick={() => setCarouselTheme('dark')}>Тёмный</button>
+          </div> : <span className="iw-scroll-hint">{variant === 2 ? 'Листайте проекты' : 'Листайте вниз'} <span aria-hidden="true">{variant === 2 ? '→' : '↓'}</span></span>}
         </header>
         </div>
-        <div className="iw-captions">
+        {!overview && <div className="iw-captions">
           {projects.map((project, index) => <div className="iw-caption" key={project.name} data-active={current === index} inert={current !== index} aria-hidden={current !== index}>
             <div className="iw-counter"><span>0{index + 1}</span><span>/ 0{projects.length}</span></div>
             <div className="iw-caption-title"><span className="iw-kicker">{project.kind} / {project.service}</span><h3>{project.name}</h3></div>
             <p className="iw-caption-description">{project.description}</p>
             <a className="iw-case-action" href={caseHref(project.slug)}>О проекте <Arrow diagonal /></a>
           </div>)}
-        </div>
+        </div>}
       </div>
-      {composition && <WorksComposition variant={variant} current={current} onNavigate={navigate} onAmbient={updateAmbient} />}
-      <div className="iw-stream" inert={composition} aria-hidden={composition}>
+      {masterIndex === 0 && <WorksCarousel composition={layout} reducedMotion={staticMode} onAmbient={updateAmbient} onSelect={setCurrent} />}
+      {masterIndex === 2 && <WorksCatalog composition={layout} />}
+      {masterIndex === 3 && <WorksFold composition={layout} />}
+      {masterIndex === 4 && <WorksAtlas composition={layout} />}
+      {composition && <WorksComposition variant={variant - 1} current={current} onNavigate={navigate} onAmbient={updateAmbient} />}
+      {!overview && <div className="iw-stream" inert={composition} aria-hidden={composition}>
         {projects.map((project, index) => <article className="iw-step" data-index={index} key={project.name} aria-label={project.name}>
           <div className="iw-step-frame">
           <div className="iw-art">
@@ -137,7 +189,7 @@ export default function IndexWorks({ active, followingSections, leadingSections 
           </div>
           </div>
         </article>)}
-      </div>
+      </div>}
     </div>
   </section>;
 }

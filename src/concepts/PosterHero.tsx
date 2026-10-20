@@ -3,7 +3,7 @@ import type { HeroProps } from '../components/Shared';
 import './poster.css';
 
 export default function PosterHero({ onOpen }: HeroProps) {
-  return <section className="hero-view poster" aria-label="Вариант 01 — Масштаб">
+  return <section className="hero-view poster" aria-label="Вариант 01">
     <Header onOpen={onOpen} />
     <div className="poster-intro"><SectionMarker>Независимая digital-студия</SectionMarker><span>От первой идеи — до работающего продукта.</span><span className="poster-year">Дизайн & разработка / 2026</span></div>
     <div className="poster-wordmark"><img src={import.meta.env.BASE_URL + 'assets/wordmark.svg'} alt="CODEAM" fetchPriority="high" /><span className="poster-wordmark-star" aria-hidden="true">✳</span></div>

@@ -21,7 +21,7 @@
 .iw-horizontal-rail { width: min(74vw,calc((100svh - 370px) * 1.75)); margin-inline: auto; flex: none; display: flex; gap: 4vw; transition: transform 1.25s cubic-bezier(.22,.7,.2,1); }
 .iw-horizontal-slide { flex: 0 0 100%; min-width: 0; opacity: .28; transform: scale(.94); transition: opacity 1s ease, transform 1.25s cubic-bezier(.22,.7,.2,1); }
 .iw-horizontal-slide[data-active='true'] { opacity: 1; transform: none; }
-.ix-works[data-variant='1'] .iw-caption-title h3 { font-size: clamp(26px,3.6vw,66px); }
+.ix-works[data-variant='2'] .iw-caption-title h3 { font-size: clamp(26px,3.6vw,66px); }
 /* 03 — The project index stays readable while the image changes beside it. */
 .iw-index-layout { height: 100%; display: grid; grid-template-columns: minmax(280px,.8fr) minmax(0,1.6fr); align-items: center; gap: 5vw; }
 .iw-project-index > .iw-kicker { margin-bottom: 26px; }

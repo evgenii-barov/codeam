@@ -9,7 +9,7 @@ const noLeading: string[] = [];
 type Stop = { top: number; bottom: number; case: boolean };
 
 /** One controller owns the case reel and every following section boundary. */
-export function useSectionWheelSteps(reel: RefObject<HTMLDivElement | null>, enabled: boolean, followingSelectors: string[] = defaultFollowing, leadingSelectors: string[] = noLeading) {
+export function useSectionWheelSteps(reel: RefObject<HTMLDivElement | null>, enabled: boolean, followingSelectors: string[] = defaultFollowing, leadingSelectors: string[] = noLeading, layoutKey = 0) {
   const lenis = usePageScroll();
   useEffect(() => {
     const element = reel.current;
@@ -32,8 +32,9 @@ export function useSectionWheelSteps(reel: RefObject<HTMLDivElement | null>, ena
     const readStops = () => {
       const y = window.scrollY;
       // Small/reduced layouts show ordinary stacked cases rather than a pinned reel.
-      const cases = innerHeight > 700 ? Array.from(element.querySelectorAll<HTMLElement>('.iw-step')) : [];
-      const workFallback = !cases.length && leading.length ? [element] : [];
+      const gallery = element.dataset.gallery === 'true';
+      const cases = !gallery && innerHeight > 700 ? Array.from(element.querySelectorAll<HTMLElement>('.iw-step')) : [];
+      const workFallback = !cases.length && (leading.length || gallery) ? [element] : [];
       stops = [...leading, ...cases, ...workFallback, ...following].map(node => {
         const rect = node.getBoundingClientRect();
         return { top: rect.top + y, bottom: rect.bottom + y, case: node.classList.contains('iw-step') };
@@ -147,5 +148,5 @@ export function useSectionWheelSteps(reel: RefObject<HTMLDivElement | null>, ena
       window.removeEventListener('resize', measure);
       document.removeEventListener('visibilitychange', visibility);
     };
-  }, [reel, enabled, lenis, followingSelectors, leadingSelectors]);
+  }, [reel, enabled, lenis, followingSelectors, leadingSelectors, layoutKey]);
 }

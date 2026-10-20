@@ -3,7 +3,7 @@ import type { HeroProps } from '../components/Shared';
 import './scene.css';
 
 export default function SceneHero({ onOpen }: HeroProps) {
-  return <section className="hero-view scene" aria-label="Вариант 02 — Сигнал">
+  return <section className="hero-view scene" aria-label="Вариант 02">
     <div className="scene-backdrop" aria-hidden="true"><img src={import.meta.env.BASE_URL + 'assets/sculpture.png'} alt="" /><div className="scene-shade" /></div>
     <Header dark onOpen={onOpen} />
     <div className="scene-topline"><SectionMarker>Студия digital-продуктов</SectionMarker><span>ИДЕЯ → ДИЗАЙН → ЗАПУСК</span></div>
