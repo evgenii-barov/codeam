@@ -3,10 +3,13 @@ import type { RefObject } from 'react';
 import { usePageScroll } from '../scroll/SmoothScroll';
 import { freezePageScroll, scrollPageTo } from '../scroll/pageScroll';
 
+const defaultFollowing = ['#services', '#process', '#about', '#reviews', '#contact'];
+const noLeading: string[] = [];
+
 type Stop = { top: number; bottom: number; case: boolean };
 
 /** One controller owns the case reel and every following section boundary. */
-export function useSectionWheelSteps(reel: RefObject<HTMLDivElement | null>, enabled: boolean) {
+export function useSectionWheelSteps(reel: RefObject<HTMLDivElement | null>, enabled: boolean, followingSelectors: string[] = defaultFollowing, leadingSelectors: string[] = noLeading) {
   const lenis = usePageScroll();
   useEffect(() => {
     const element = reel.current;
@@ -22,16 +25,18 @@ export function useSectionWheelSteps(reel: RefObject<HTMLDivElement | null>, ena
       if (owns()) freezePageScroll();
       running = null; queued = null; residualDirection = 0;
     };
-    const following = ['services', 'process', 'about', 'reviews', 'contact'].map(id => document.getElementById(id)).filter((node): node is HTMLElement => !!node);
+    const following = followingSelectors.map(selector => document.querySelector<HTMLElement>(selector)).filter((node): node is HTMLElement => !!node);
+    const leading = leadingSelectors.map(selector => document.querySelector<HTMLElement>(selector)).filter((node): node is HTMLElement => !!node);
     const footer = document.querySelector<HTMLElement>('.cl-footer');
     if (footer) following.push(footer);
     const readStops = () => {
       const y = window.scrollY;
       // Small/reduced layouts show ordinary stacked cases rather than a pinned reel.
       const cases = innerHeight > 700 ? Array.from(element.querySelectorAll<HTMLElement>('.iw-step')) : [];
-      stops = [...cases, ...following].map((node, index) => {
+      const workFallback = !cases.length && leading.length ? [element] : [];
+      stops = [...leading, ...cases, ...workFallback, ...following].map(node => {
         const rect = node.getBoundingClientRect();
-        return { top: rect.top + y, bottom: rect.bottom + y, case: index < cases.length };
+        return { top: rect.top + y, bottom: rect.bottom + y, case: node.classList.contains('iw-step') };
       });
       lenis.resize();
     };
@@ -119,7 +124,7 @@ export function useSectionWheelSteps(reel: RefObject<HTMLDivElement | null>, ena
     const visibility = () => { if (document.hidden) cancel(); };
     const click = (event: MouseEvent) => { if (event.composedPath().some(node => node instanceof HTMLAnchorElement)) cancel(); };
     const resize = new ResizeObserver(measure); resize.observe(element);
-    following.forEach(node => resize.observe(node));
+    [...leading, ...following].forEach(node => resize.observe(node));
     const experience = element.closest('.ix-experience');
     if (experience) resize.observe(experience);
     const overview = document.getElementById('studio');
@@ -142,5 +147,5 @@ export function useSectionWheelSteps(reel: RefObject<HTMLDivElement | null>, ena
       window.removeEventListener('resize', measure);
       document.removeEventListener('visibilitychange', visibility);
     };
-  }, [reel, enabled, lenis]);
+  }, [reel, enabled, lenis, followingSelectors, leadingSelectors]);
 }

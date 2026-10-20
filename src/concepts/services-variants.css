@@ -77,3 +77,10 @@
   .sv-task-grid h3 { font-size: 34px; }
   .sv-task-grid button { width: 40px; height: 44px; }
 }
+/* Real service pages are available in every homepage composition. */
+.sv-section .sv-service-link { display:flex; align-items:center; justify-content:space-between; gap:20px; min-height:44px; padding-top:16px; border-top:1px solid var(--dv-rule); font-size:13px; color:inherit; text-decoration:none; }
+.sv-detail .sv-service-link { grid-column:1/-1; justify-self:start; gap:50px; }
+.sv-service-link:hover { color:#8da300; }
+.sv-task-grid .sv-task-link { position:absolute; right:0; top:50%; width:48px; height:48px; display:grid; place-items:center; border:1px solid var(--dv-rule); color:inherit; }
+.sv-task-link:hover { background:#d7ff36; }
+@media(max-width:700px) { .sv-detail .sv-service-link { margin-top:20px; } .sv-task-grid .sv-task-link { width:40px; height:44px; } }

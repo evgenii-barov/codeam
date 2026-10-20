@@ -5,6 +5,11 @@ import EditorialHero from './concepts/EditorialHero';
 import { Arrow } from './components/Shared';
 import type { PanelKind } from './components/Shared';
 
+import { serviceFromLocation } from './services/services';
+import { caseFromLocation } from './cases/projects';
+const CasePage = lazy(() => import('./cases/CasePage'));
+const ServicePage = lazy(() => import('./services/ServicePage'));
+
 const IndexExperience = lazy(() => import('./concepts/IndexExperience'));
 
 const concepts = [
@@ -47,6 +52,10 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
   useEffect(() => { const pop = () => setActive(getInitial()); window.addEventListener('popstate', pop); return () => window.removeEventListener('popstate', pop); }, []);
+  const project = caseFromLocation();
+  if (project) return <Suspense fallback={<div style={{ minHeight: '100svh', background: '#fafaf8' }} />}><CasePage project={project} /></Suspense>;
+  const service = serviceFromLocation();
+  if (service) return <><Suspense fallback={<div style={{ minHeight: '100svh', background: '#fafaf8' }} />}><ServicePage service={service} onOpen={setPanel} /></Suspense>{panel && <ContentPanel kind={panel} onClose={() => setPanel(null)} />}</>;
   const concept = new URLSearchParams(window.location.search).get('concept');
   if (!concept || concept === '2/index') return <><Suspense fallback={<div style={{ minHeight: '100svh', background: '#10120f' }} />}><IndexExperience onOpen={setPanel} /></Suspense>{panel && <ContentPanel kind={panel} onClose={() => setPanel(null)} />}</>;
   if (isolated) return <main className="isolated"><Hero onOpen={setPanel} />{panel && <ContentPanel kind={panel} onClose={() => setPanel(null)} />}</main>;

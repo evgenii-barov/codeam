@@ -3,6 +3,7 @@ import { Arrow } from '../components/Shared';
 import type { PanelKind } from '../components/Shared';
 import DesignVariants from '../components/DesignVariants';
 import './services-variants.css';
+import { services, serviceHref } from '../services/services';
 
 type Props = { onOpen: (kind: PanelKind) => void; active: boolean };
 const directions = [
@@ -23,7 +24,7 @@ export default function IndexServices({ onOpen, active }: Props) {
         const open = expanded === index;
         return <article className="sv-row" data-open={open} key={direction.title}>
           <h3><button id={`sv-trigger-${index}`} aria-expanded={open} aria-controls={`sv-detail-${index}`} onClick={() => setExpanded(open ? null : index)}><span className="sv-number">0{index + 1}</span><span>{direction.title}</span><span className="sv-toggle" aria-hidden="true">{open ? '−' : '+'}</span></button></h3>
-          <div className="sv-detail" id={`sv-detail-${index}`} role="region" aria-labelledby={`sv-trigger-${index}`} hidden={!open}><p>{direction.description}</p><ul>{direction.capabilities.map(item => <li key={item}>{item}</li>)}</ul></div>
+          <div className="sv-detail" id={`sv-detail-${index}`} role="region" aria-labelledby={`sv-trigger-${index}`} hidden={!open}><p>{direction.description}</p><ul>{direction.capabilities.map(item => <li key={item}>{item}</li>)}</ul><a className="sv-service-link" href={serviceHref(services[index].slug)}>Подробнее об услуге <Arrow diagonal /></a></div>
         </article>;
       })}</div>
       <div className="sv-bottom"><span>Одна задача или проект целиком.</span><button className="sv-text-action" onClick={discuss}>Обсудить задачу <Arrow diagonal /></button></div>
@@ -33,7 +34,7 @@ export default function IndexServices({ onOpen, active }: Props) {
       <div className="sv-column-grid">{directions.map((direction, index) => <article key={direction.title}>
         <span className="sv-large-number">0{index + 1}</span><h3>{direction.title}</h3><p>{direction.note}</p>
         <ul>{direction.capabilities.map(item => <li key={item}>{item}</li>)}</ul>
-        <button onClick={discuss}>Обсудить направление <Arrow diagonal /></button>
+        <a className="sv-service-link" href={serviceHref(services[index].slug)}>Подробнее об услуге <Arrow diagonal /></a>
       </article>)}</div>
       <div className="sv-column-note"><span>От первого решения<br />до работающей системы.</span><p>Можно начать с разбора сайта.<br />Найдём, что стоит улучшить в первую очередь.</p><button className="dv-cta" onClick={() => onOpen('audit')}>Получить разбор <Arrow /></button></div>
     </div>;
@@ -41,7 +42,7 @@ export default function IndexServices({ onOpen, active }: Props) {
       <div className="sv-task-intro"><h2 id={headingId} tabIndex={-1}>Что сейчас<br />нужно<br /><span>бизнесу?</span></h2><p>{lead}</p><button className="dv-cta" onClick={() => onOpen('audit')}>Начать с разбора <Arrow /></button></div>
       <div className="sv-task-grid">{directions.map((direction, index) => <article key={direction.title}>
         <span className="sv-number">0{index + 1} / {direction.title}</span><h3>{direction.verb}</h3><p>{direction.note}</p>
-        <ul>{direction.capabilities.map(item => <li key={item}>{item}</li>)}</ul><button onClick={discuss} aria-label={`Обсудить: ${direction.title}`}><Arrow diagonal /></button>
+        <ul>{direction.capabilities.map(item => <li key={item}>{item}</li>)}</ul><a className="sv-task-link" href={serviceHref(services[index].slug)} aria-label={`Подробнее: ${direction.title}`}><Arrow diagonal /></a>
       </article>)}</div>
     </div>;
   }}</DesignVariants>;

@@ -16,11 +16,12 @@ createServer(async (request, response) => {
   let pathname;
   try { pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname); } catch { return reject(400, 'Invalid URL'); }
   if (pathname.includes('\0')) return reject(400, 'Invalid URL');
-  const file = resolve(root, `.${pathname === '/' ? '/index.html' : pathname}`);
+  let file = resolve(root, `.${pathname === '/' ? '/index.html' : pathname}`);
   const local = relative(root, file);
   if (local.startsWith('..') || isAbsolute(local)) return reject(403, 'Forbidden');
   try {
-    const info = await stat(file);
+    let info = await stat(file);
+    if (info.isDirectory()) { file = resolve(file, 'index.html'); info = await stat(file); }
     if (!info.isFile()) return reject(404, 'Not found');
     response.writeHead(200, {
       'Content-Type': types[extname(file)] || 'application/octet-stream',

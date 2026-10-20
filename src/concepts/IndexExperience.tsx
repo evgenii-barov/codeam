@@ -25,15 +25,16 @@ function Symbol({ className = '', sculpture = false }: { className?: string; scu
 
 export default function IndexExperience({ onOpen }: HeroProps) {
   const physical = new URLSearchParams(window.location.search).get('material') === 'physical';
-  const [phase, setPhase] = useState<Phase>('assembling');
+  const landing = useRef(['#studio', '#services', '#work', '#process', '#about', '#reviews', '#contact'].includes(location.hash) ? location.hash.slice(1) : null);
+  const [phase, setPhase] = useState<Phase>(landing.current ? 'active' : 'assembling');
   const [sceneFailed, setSceneFailed] = useState(false);
   const [cycle, setCycle] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  const [instant, setInstant] = useState(false);
+  const [instant, setInstant] = useState(!!landing.current);
   const [paused, setPaused] = useState(document.hidden);
   const [introHeight, setIntroHeight] = useState(window.innerHeight);
   const [dockTarget, setDockTarget] = useState<{ x: number; y: number; width: number; height: number }>();
-  const phaseRef = useRef<Phase>('assembling');
+  const phaseRef = useRef<Phase>(phase);
   const loadedRef = useRef(false);
   const failedRef = useRef(false);
   const keyboardEntry = useRef(false);
@@ -133,8 +134,23 @@ export default function IndexExperience({ onOpen }: HeroProps) {
     return () => { observer.disconnect(); window.removeEventListener('resize', measure); };
   }, []);
 
+  // A return link from a service page opens its requested section directly.
+  useEffect(() => {
+    if (!landing.current || cycle !== 0) return;
+    let disposed = false, frame = 0;
+    void document.fonts.ready.then(() => {
+      if (disposed) return;
+      frame = requestAnimationFrame(() => { frame = requestAnimationFrame(() => {
+        const target = document.getElementById(landing.current!);
+        if (target) setPageScroll(target.getBoundingClientRect().top + window.scrollY);
+      }); });
+    });
+    return () => { disposed = true; cancelAnimationFrame(frame); };
+  }, [cycle]);
+
   // Advance the intro on visible time only. React updates at phase boundaries, not every frame.
   useEffect(() => {
+    if (landing.current && cycle === 0) return;
     let elapsed = 0;
     let revealStarted = -1;
     let previous = performance.now();

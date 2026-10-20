@@ -20,7 +20,7 @@
 .iw-captions { display: grid; position: relative; }
 .iw-caption { grid-area: 1 / 1; display: grid; grid-template-columns: .18fr 1fr .52fr auto; align-items: end; gap: 28px; opacity: 0; transform: translateY(14px); transition: opacity .38s ease, transform .5s cubic-bezier(.22,.7,.2,1); pointer-events: none; }
 .iw-caption[data-active='true'] { opacity: 1; transform: translateY(0); }
-.iw-caption[data-active='true'] button { pointer-events: auto; }
+.iw-caption[data-active='true'] :is(a,button) { pointer-events: auto; }
 .iw-counter { display: flex; align-items: baseline; gap: 9px; padding-bottom: 8px; font-size: 13px; font-variant-numeric: tabular-nums; }
 .iw-counter span:first-child { color: #d7ff36; }
 .iw-counter span:last-child { color: #787e73; }
@@ -138,3 +138,5 @@
   .iw-title-letter { opacity: 1; transform: none; transition: none; }
   .iw-ambient-light { transition: none; animation: none; will-change: auto; }
 }
+
+.ix-works a.iw-case-action,.ix-works a.iw-preview-trigger { text-decoration:none; }
